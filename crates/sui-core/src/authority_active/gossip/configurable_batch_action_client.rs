@@ -10,6 +10,7 @@ use crate::safe_client::SafeClient;
 use async_trait::async_trait;
 use std::borrow::Borrow;
 use std::collections::BTreeMap;
+use std::option::Option::None;
 use std::sync::Arc;
 use std::sync::Once;
 use std::{env, fs};
@@ -230,7 +231,7 @@ pub async fn init_configurable_authorities(
         voting_rights.insert(authority_name, 1);
         key_pairs.push((authority_name, key_pair));
     }
-    let committee = Committee::new(0, voting_rights);
+    let committee = Committee::new(0, voting_rights, None);
 
     // Create Authority Clients and States.
     let mut clients = Vec::new();

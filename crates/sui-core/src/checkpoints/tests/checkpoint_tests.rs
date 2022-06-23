@@ -13,6 +13,7 @@ use crate::{
 };
 use rand::prelude::StdRng;
 use rand::SeedableRng;
+use std::option::Option::None;
 use std::{collections::HashSet, env, fs, path::PathBuf, sync::Arc, time::Duration};
 use sui_types::{
     base_types::{AuthorityName, ObjectID},

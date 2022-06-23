@@ -3,6 +3,7 @@
 use crate::{messages::make_certificates, TEST_COMMITTEE_SIZE};
 use rand::{prelude::StdRng, SeedableRng};
 use std::collections::BTreeMap;
+use std::option::Option::None;
 use std::time::Duration;
 use sui_config::{NetworkConfig, ValidatorInfo};
 use sui_core::{
@@ -71,7 +72,7 @@ pub fn test_authority_aggregator(
         .iter()
         .map(|config| (config.public_key(), config.stake()))
         .collect();
-    let committee = Committee::new(0, voting_rights);
+    let committee = Committee::new(0, voting_rights, None);
     let clients: BTreeMap<_, _> = validators_info
         .iter()
         .map(|config| {

@@ -10,6 +10,7 @@ use std::{
     path::PathBuf,
     time::Duration,
 };
+use std::option::Option::None;
 use sui_config::Config;
 use sui_config::ValidatorInfo;
 use sui_core::{
@@ -92,7 +93,7 @@ impl GatewayConfig {
             .iter()
             .map(|validator| (validator.public_key(), validator.stake()))
             .collect();
-        Committee::new(self.epoch, voting_rights)
+        Committee::new(self.epoch, voting_rights, None)
     }
 
     pub fn make_authority_clients(&self) -> BTreeMap<AuthorityName, NetworkAuthorityClient> {

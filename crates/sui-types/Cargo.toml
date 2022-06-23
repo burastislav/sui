@@ -36,6 +36,7 @@ schemars ="0.8.10"
 tonic = "0.7"
 strum = "^0.24"
 strum_macros = "^0.24"
+multiaddr = "0.14.0"
 
 name-variant = { git = "https://github.com/MystenLabs/mysten-infra", rev = "ff5c1d69057fe93be658377462ca2875a57a0223" }
 typed-store = { git = "https://github.com/MystenLabs/mysten-infra", rev = "ff5c1d69057fe93be658377462ca2875a57a0223" }

@@ -9,6 +9,7 @@ use sui_config::NetworkConfig;
 
 use multiaddr::Multiaddr;
 use rocksdb::Options;
+use std::option::Option::None;
 use std::{
     env, fs, panic,
     path::{Path, PathBuf},

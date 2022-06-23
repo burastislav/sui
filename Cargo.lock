@@ -6587,6 +6587,7 @@ dependencies = [
  "move-disassembler",
  "move-ir-types",
  "move-vm-types",
+ "multiaddr",
  "name-variant",
  "once_cell",
  "opentelemetry",

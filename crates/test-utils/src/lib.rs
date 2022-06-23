@@ -6,6 +6,7 @@ pub mod network;
 pub mod objects;
 pub mod transaction;
 
+use std::option::Option::None;
 use rand::{rngs::StdRng, SeedableRng};
 use sui_types::{
     base_types::SuiAddress,
@@ -32,5 +33,6 @@ pub fn test_committee() -> Committee {
             .into_iter()
             .map(|(_, x)| (*x.public_key_bytes(), /* voting right */ 1))
             .collect(),
+        None,
     )
 }

@@ -25,6 +25,7 @@ use sui_types::{
 };
 
 use std::fs;
+use std::option::Option::None;
 use std::{convert::TryInto, env};
 
 pub enum TestCallArg {
@@ -1570,7 +1571,7 @@ fn init_state_parameters() -> (Committee, SuiAddress, KeyPair, Arc<AuthorityStor
         /* address */ *authority_key.public_key_bytes(),
         /* voting right */ 1,
     );
-    let committee = Committee::new(0, authorities);
+    let committee = Committee::new(0, authorities, None);
 
     // Create a random directory to store the DB
 

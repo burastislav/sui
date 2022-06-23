@@ -7,6 +7,7 @@ use base64ct::Encoding;
 use move_binary_format::CompiledModule;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::{fs, path::Path};
+use std::option::Option::None;
 use sui_types::{
     base_types::TxContext,
     committee::{Committee, EpochId},
@@ -49,7 +50,7 @@ impl Genesis {
             .iter()
             .map(|validator| (validator.public_key(), validator.stake()))
             .collect();
-        Committee::new(self.epoch(), voting_rights)
+        Committee::new(self.epoch(), voting_rights, None)
     }
 
     pub fn get_default_genesis() -> Self {

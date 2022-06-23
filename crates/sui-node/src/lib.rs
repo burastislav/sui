@@ -4,6 +4,7 @@
 use anyhow::Result;
 use futures::TryFutureExt;
 use parking_lot::Mutex;
+use std::option::Option::None;
 use std::{collections::BTreeMap, sync::Arc, time::Duration};
 
 use jsonrpsee::ws_server::WsServerBuilder;
@@ -26,6 +27,8 @@ use sui_json_rpc::event_api::EventApiImpl;
 use sui_json_rpc::read_api::FullNodeApi;
 use sui_json_rpc::read_api::ReadApi;
 use sui_json_rpc_api::EventApiServer;
+use sui_types::committee::Committee;
+use sui_types::crypto::PublicKeyBytes;
 
 pub struct SuiNode {
     grpc_server: tokio::task::JoinHandle<Result<()>>,
@@ -96,6 +99,11 @@ impl SuiNode {
             net_config.http2_keepalive_interval = Some(Duration::from_secs(5));
 
             let mut authority_clients = BTreeMap::new();
+            // TODO Laura: get this from the chain not genesis
+
+            //let sui_system_state = state.get_sui_system_state_object().await?;
+            //let epoch_validators = &sui_system_state.validators.active_validators;
+
             for validator in genesis.validator_set() {
                 let channel = net_config
                     .connect_lazy(validator.network_address())

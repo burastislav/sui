@@ -1,6 +1,7 @@
 // Copyright (c) 2022, Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 use std::collections::BTreeMap;
+use std::option::Option::None;
 use std::sync::Arc;
 
 use move_core_types::{account_address::AccountAddress, ident_str};
@@ -56,7 +57,7 @@ pub async fn init_local_authorities_with_genesis(
         voting_rights.insert(authority_name, 1);
         key_pairs.push((authority_name, key_pair));
     }
-    let committee = Committee::new(0, voting_rights);
+    let committee = Committee::new(0, voting_rights, None);
 
     let mut clients = BTreeMap::new();
     let mut states = Vec::new();

@@ -6,6 +6,7 @@ use crate::{
     crypto::{get_key_pair_from_rng, KeyPair},
 };
 use std::collections::BTreeMap;
+use std::option::Option::None;
 
 pub fn make_committee_key<R>(rand: &mut R) -> (Vec<KeyPair>, Committee)
 where
@@ -30,6 +31,6 @@ where
         keys.push(inner_authority_key);
     }
 
-    let committee = Committee::new(0, authorities);
+    let committee = Committee::new(0, authorities, None);
     (keys, committee)
 }

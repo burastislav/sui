@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use std::collections::BTreeMap;
+use std::option::Option::None;
 
 use crate::crypto::get_key_pair;
 
@@ -32,7 +33,7 @@ fn test_signed_values() {
         /* address */ *sec2.public_key_bytes(),
         /* voting right */ 0,
     );
-    let committee = Committee::new(0, authorities);
+    let committee = Committee::new(0, authorities, None);
 
     let transaction = Transaction::from_data(
         TransactionData::new_transfer(a2, random_object_ref(), a1, random_object_ref(), 10000),
@@ -91,7 +92,7 @@ fn test_certificates() {
         /* address */ *sec2.public_key_bytes(),
         /* voting right */ 1,
     );
-    let committee = Committee::new(0, authorities);
+    let committee = Committee::new(0, authorities, None);
 
     let transaction = Transaction::from_data(
         TransactionData::new_transfer(a2, random_object_ref(), a1, random_object_ref(), 10000),

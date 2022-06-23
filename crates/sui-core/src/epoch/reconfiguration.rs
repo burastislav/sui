@@ -1,6 +1,7 @@
 // Copyright (c) 2022, Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
+use std::option::Option::None;
 use crate::authority_active::ActiveAuthority;
 use crate::authority_aggregator::AuthorityAggregator;
 use crate::authority_client::AuthorityAPI;
@@ -95,14 +96,14 @@ where
                 )
             })
             .collect();
-        let new_committee = Committee::new(next_epoch, votes);
+        let new_committee = Committee::new(next_epoch, votes, None);
         self.state.insert_new_epoch_info(&new_committee)?;
         let new_net = Arc::new(AuthorityAggregator::new(
             new_committee,
             self.net.load().clone_inner_clients(),
         ));
         self.net.store(new_net.clone());
-        // TODO: Also reconnect network if changed.
+        // TODO Laura: Also reconnect network if changed.
         // This is blocked for now since we are not storing network info on-chain yet.
 
         // TODO: Update all committee in all components safely,

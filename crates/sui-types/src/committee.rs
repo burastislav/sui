@@ -6,6 +6,7 @@ use super::base_types::*;
 use crate::error::SuiResult;
 use ed25519_dalek::PublicKey;
 use itertools::Itertools;
+use multiaddr::Multiaddr;
 use rand::distributions::{Distribution, Uniform};
 use rand::rngs::OsRng;
 use serde::{Deserialize, Serialize};
@@ -19,15 +20,23 @@ pub type StakeUnit = u64;
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Committee {
     pub epoch: EpochId,
+
     pub voting_rights: BTreeMap<AuthorityName, StakeUnit>,
+
     pub total_votes: StakeUnit,
     // Note: this is a derived structure, no need to store.
     #[serde(skip)]
     expanded_keys: HashMap<AuthorityName, PublicKey>,
+
+    pub network_addresses: Option<HashMap<AuthorityName, Multiaddr>>,
 }
 
 impl Committee {
-    pub fn new(epoch: EpochId, voting_rights: BTreeMap<AuthorityName, StakeUnit>) -> Self {
+    pub fn new(
+        epoch: EpochId,
+        voting_rights: BTreeMap<AuthorityName, StakeUnit>,
+        network_addresses: Option<HashMap<AuthorityName, Multiaddr>>,
+    ) -> Self {
         let total_votes = voting_rights.iter().map(|(_, votes)| votes).sum();
         let expanded_keys: HashMap<_, _> = voting_rights
             .iter()
@@ -40,6 +49,7 @@ impl Committee {
             voting_rights,
             total_votes,
             expanded_keys,
+            network_addresses,
         }
     }
 

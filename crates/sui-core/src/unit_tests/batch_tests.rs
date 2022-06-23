@@ -21,6 +21,7 @@ use futures::stream;
 use std::collections::BTreeMap;
 use std::env;
 use std::fs;
+use std::option::Option::None;
 use std::sync::Arc;
 use sui_types::messages::{
     AccountInfoRequest, AccountInfoResponse, BatchInfoRequest, BatchInfoResponseItem,
@@ -39,7 +40,7 @@ where
         /* address */ *authority_key.public_key_bytes(),
         /* voting right */ 1,
     );
-    let committee = Committee::new(0, authorities);
+    let committee = Committee::new(0, authorities, None);
 
     (committee, authority_address, authority_key)
 }
@@ -760,7 +761,7 @@ async fn test_safe_batch_stream() {
     println!("init public key {:?}", public_key_bytes);
 
     authorities.insert(public_key_bytes, 1);
-    let committee = Committee::new(0, authorities);
+    let committee = Committee::new(0, authorities, None);
     // Create an authority
     let store = Arc::new(AuthorityStore::open(&path, None));
     let state = AuthorityState::new(
