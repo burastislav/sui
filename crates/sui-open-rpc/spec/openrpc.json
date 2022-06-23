@@ -1309,7 +1309,6 @@
               "transferObject": {
                 "type": "object",
                 "required": [
-                  "destinationAddr",
                   "objectId",
                   "packageId",
                   "recipient",
@@ -1320,9 +1319,6 @@
                   "version"
                 ],
                 "properties": {
-                  "destinationAddr": {
-                    "$ref": "#/components/schemas/SuiAddress"
-                  },
                   "objectId": {
                     "$ref": "#/components/schemas/ObjectID"
                   },
